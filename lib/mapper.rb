@@ -1,21 +1,6 @@
+require 'mapper/mapper'
+
 module Mapper
-  class Mapper
-    attr_writer :target_class, :constructor
-
-    def initialize
-      @constructor = []
-      @target_klass = nil
-    end
-
-    def from_hash(hash)
-      params = @constructor.map do |attribute_name|
-        hash[attribute_name]
-      end
-
-      @target_class.new(*params)
-    end
-  end
-
   class MapperDefinition
     def initialize(block)
       @block = block
@@ -24,6 +9,10 @@ module Mapper
 
     def target(klass)
       @mapper.target_class = klass
+    end
+
+    def attribute(name, options)
+      @mapper.add_attribute(name, options)
     end
 
     def constructor(attributes_list)

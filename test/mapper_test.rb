@@ -25,5 +25,27 @@ class MapperTest < Minitest::Test
 
     object = mapper.from_hash(hash)
     assert_kind_of(SimpleObject, object)
+    assert_equal("John Doe", object.name)
+    assert_equal(5, object.count)
+  end
+
+  def test_mapping_with_renaming_attributes
+    mapper = Mapper.create do
+      target SimpleObject
+
+      attribute :name, from: :full_name
+
+      constructor [:name, :count]
+    end
+
+    hash = {
+      full_name: "John Doe",
+      count: 5
+    }
+
+    object = mapper.from_hash(hash)
+    assert_kind_of(SimpleObject, object)
+    assert_equal("John Doe", object.name)
+    assert_equal(5, object.count)
   end
 end
