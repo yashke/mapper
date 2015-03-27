@@ -2,6 +2,7 @@
 
 ## Usage
 
+```ruby
 class MultiJsonProcessor
   def load(value)
     MultiJson.load(value)
@@ -43,3 +44,4 @@ end
 
 mapper.from\_hash(hash)
 #=> Entity
+```
